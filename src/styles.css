@@ -1,1 +1,28 @@
+@import '~ngx-toastr/toastr.css'; 
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --cor-de-fundo: #EBECEE;
+  --branco: #FFFFFF;
+  --laranja: #EB9B00;
+  --azul-degrade: linear-gradient(97.54deg, #002F52 35.49%, #326589 165.37%);
+  --fonte-principal: "Poppins";
+  --azul: #002F52;
+  --fonte-secundario: "Josefin Sans";
+  --preto: #000000;
+  --cinza: #474646;
+  --cinza-claro: #858585;
+  --vermelho: #D94937;
+}
+
+main {
+  /* width: 50vw; */
+  margin: 4em 4em;
+  /* margin: 4em auto 4em auto; */
+}
+
+body {
+  background-color: var(--branco);
+  font-family: var(--fonte-principal);
+  font-size: 16px;
+  font-weight: 400;
+}

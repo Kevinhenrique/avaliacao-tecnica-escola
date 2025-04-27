@@ -1,0 +1,86 @@
+<section>
+  <app-loader [isLoading]="loading"></app-loader>
+  <div class="formulario__dupla">
+    <div class="formulario__campo">
+      <label class="campo__etiqueta" for="pesquisar">Pesquisar</label>
+      <input
+        name="pesquisar"
+        id="pesquisar"
+        class="campo__escrita"
+        ngModel
+        (keyup)="pesquisar($event)"
+      />
+    </div>
+    <div class="" style="margin-top: 30px">
+      <button
+        type="submit"
+        class="formulario__botao_editar"
+        routerLink="/novo-cadastro"
+      >
+        Novo Cadastro
+      </button>
+    </div>
+  </div>
+
+  <div class="tabela" id="content" #content>
+    <table *ngIf="listar.length > 0 && turma.length > 0; else semAlunos">
+      <thead>
+        <tr>
+          <th>NOME</th>
+          <th>CPF</th>
+          <th>DATA NASCIMENTO</th>
+          <th>TELEFONE</th>
+          <th>EMAIL</th>
+          <th>Cidade</th>
+          <th>Bairro</th>
+          <th>TURMA</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody
+        id="informacao-aluno"
+      >
+        <tr *ngFor="let aluno of listar">
+          <td>{{ aluno.nome }}</td>
+          <td>{{ aluno.cpf }}</td>
+          <td>{{ aluno.data_Nascimento | date : "dd/MM/yyyy" }}</td>
+          <td>{{ aluno.telefone }}</td>
+          <td>{{ aluno.email }}</td>
+          <td>{{ aluno.cidade }}</td>
+          <td>{{ aluno.bairro }}</td>
+          <td>{{ apresentarTurmaTabela(aluno.id_Classe) }}</td>
+          <td>
+            <button class="formulario__botao_editar" (click)="baixarRelatorio(aluno)">
+              Baixar Ficha
+            </button>
+          </td>
+          <td>
+            <button
+              type="submit"
+              class="formulario__botao_editar"
+              routerLink="/cadastro/{{ aluno.id }}"
+            >
+              Editar
+            </button>
+          </td>
+          <td>
+            <button
+              type="submit"
+              class="formulario__botao_excluir"
+              routerLink="/excluir/{{ aluno.id }}"
+            >
+              Excluir
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #semAlunos>
+      <div class="semDados">
+        <p>Ainda não há alunos cadastrados!</p>
+      </div>
+    </ng-template>
+  </div>
+</section>

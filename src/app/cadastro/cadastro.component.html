@@ -1,0 +1,327 @@
+<section>
+  <app-loader [isLoading]="loading"></app-loader>
+  <h2 class="principal__titulo">Dados do cadastro</h2>
+
+  <form [formGroup]="formulario" *ngIf="formulario">
+    <h3 class="principal__subtitulo">Dados pessoais</h3>
+
+    <div class="formulario__campo">
+      <label class="campo__etiqueta" for="id_Classe">Turma</label>
+      <select
+        id="id_Classe"
+        name="id_Classe"
+        class="campo__escrita"
+        formControlName="id_Classe"
+        [disabled]="campoDesabilitado"
+        *ngIf="turma.length > 0; else semTurma"
+      >
+        <option
+          *ngFor="let classeAluno of turma"
+          value="{{ classeAluno.id }}"
+        >
+          {{ classeAluno.classe }}
+        </option>
+      </select>
+      <ng-template #semTurma>
+        <select
+          id="id_Classe"
+          name="id_Classe"
+          class="campo__escrita"
+          ngModel
+          disabled
+        >
+          <option>Sem Turma</option>
+        </select>
+      </ng-template>
+    </div>
+
+    <div class="formulario__dupla">
+      <!-- NOME -->
+      <div class="formulario__campo">
+        <label class="campo__etiqueta" for="nome">Nome Completo</label>
+        <input
+          name="nome"
+          id="nome"
+          type="text"
+          class="campo__escrita"
+          formControlName="nome"
+          required
+          minlength="3"
+          [disabled]="campoDesabilitado"
+
+        />
+        <div
+          *ngIf="
+            (formulario.get('nome')?.invalid && formulario.get('nome')?.touched) ||
+            formulario.get('nome')?.dirty
+          "
+        >
+          <app-mensagem
+            *ngIf="formulario.get('nome')?.errors?.['required']"
+            mensagem="O campo de nome deve ser preenchido!"
+          ></app-mensagem>
+          <app-mensagem
+          *ngIf="formulario.get('nome')?.errors?.['minlength']"
+          mensagem="O campo de nome deve ter no minimo 2 caracteres!"
+          ></app-mensagem>
+        </div>
+      </div>
+
+      <!-- CPF -->
+
+      <div class="formulario__campo">
+        <label class="campo__etiqueta" for="cpf">CPF</label>
+        <input
+          name="cpf"
+          id="cpf"
+          type="tel"
+          class="campo__escrita"
+          formControlName="cpf"
+          required
+          maxlength="11"
+          [disabled]="campoDesabilitado"
+        />
+        <div
+          *ngIf="
+            (formulario.get('cpf')?.invalid && formulario.get('cpf')?.touched) ||
+            formulario.get('cpf')?.dirty
+          "
+        >
+          <app-mensagem
+            *ngIf="formulario.get('cpf')?.errors?.['required']"
+            mensagem="O campo de CPF deve ser preenchida."
+          ></app-mensagem>
+        </div>
+      </div>
+
+      <!-- DATA DE NASCIMENTO -->
+
+      <div class="formulario__campo">
+        <label class="campo__etiqueta" for="data_Nascimento">Nascimento</label>
+        <input
+          name="data_Nascimento"
+          id="data_Nascimento"
+          type="date"
+          class="campo__escrita"
+          formControlName="data_Nascimento"
+          required
+          [disabled]="campoDesabilitado"
+        />
+        <div
+          *ngIf="
+            (formulario.get('data_Nascimento')?.invalid &&
+            formulario.get('data_Nascimento')?.touched) ||
+            formulario.get('data_Nascimento')?.dirty
+          "
+        >
+          <app-mensagem
+            *ngIf="formulario.get('data_Nascimento')?.errors?.['required']"
+            mensagem="A data de nascimento deve ser preenchida."
+          ></app-mensagem>
+        </div>
+      </div>
+    </div>
+
+    <div class="formulario__dupla">
+      <!-- SEXO -->
+      <div class="formulario__campo">
+        <div class="formulario__dupla">
+          <label for="sexo" class="campo__etiqueta">
+            <input
+              type="radio"
+              id="sexo"
+              value="M"
+              formControlName="sexo"
+              name="sexo"
+            />
+            <span>Masculino</span>
+          </label>
+          <label for="sexo" class="campo__etiqueta">
+          <input
+            type="radio"
+            id="sexo"
+            value="F"
+            formControlName="sexo"
+            name="sexo"
+          />
+          <span>Feminino</span>
+        </label>
+      </div>
+    </div>
+
+      <!-- E-MAIL -->
+      <div class="formulario__campo">
+        <label class="campo__etiqueta" for="email">E-mail</label>
+        <input
+          name="email"
+          id="email"
+          type="email"
+          class="campo__escrita"
+          formControlName="email"
+          required
+          pattern="^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$"
+        />
+        <div
+          *ngIf="
+            (formulario.get('email')?.invalid && formulario.get('email')?.touched) ||
+            formulario.get('email')?.dirty
+          "
+        >
+          <app-mensagem
+            *ngIf="formulario.get('email')?.errors?.['required']"
+            mensagem="O campo de e-mail deve ser preenchido!"
+          ></app-mensagem>
+          <app-mensagem
+            *ngIf="formulario.get('email')?.errors?.['pattern']"
+            mensagem="O campo de e-mail deve seguir este padrão: exemplo@dominio.com"
+          ></app-mensagem>
+        </div>
+      </div>
+
+      <!-- TELEFONE DE CONTATO -->
+
+      <div class="formulario__campo">
+        <label class="campo__etiqueta" for="telefone">Contato</label>
+        <input
+          name="telefone"
+          id="telefone"
+          type="tel"
+          placeholder="XX XXXXXXXXX"
+          class="campo__escrita"
+          formControlName="telefone"
+          required
+          pattern="(\(?\d{2}\)?\s?)(\d{5}\-?\d{4})"
+        />
+        <div
+          *ngIf="
+            (formulario.get('telefone')?.invalid &&
+            formulario.get('telefone')?.touched) ||
+            formulario.get('telefone')?.dirty
+          "
+        >
+          <app-mensagem
+            *ngIf="formulario.get('telefone')?.errors?.['required']"
+            mensagem="O campo de telefone deve ser preenchido!"
+          ></app-mensagem>
+          <app-mensagem
+            *ngIf="formulario.get('telefone')?.errors?.['pattern']"
+            mensagem="O campo de telefone deve ser o seguinte padrão: XX XXXXXXXXX"
+          ></app-mensagem>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="principal__subtitulo">Endereço</h3>
+
+    <div class="formulario__dupla">
+      <div class="formulario__campo">
+        <label class="campo__etiqueta" for="endereco">CEP</label>
+        <input
+          name="endereco"
+          id="endereco"
+          class="campo__escrita"
+          required
+          formControlName="endereco"
+          pattern="^(\d{5})(-?\d{3})$"
+          minlength="8"
+          maxlength="9"
+          (blur)="consultaCEP($event)"
+        />
+        <div
+          *ngIf="
+            (formulario.get('endereco')?.invalid && formulario.get('endereco')?.touched) ||
+            formulario.get('endereco')?.dirty
+          "
+        >
+          <app-mensagem
+            *ngIf="formulario.get('endereco')?.errors?.['required']"
+            mensagem="O campo de cep é obrigatório."
+          ></app-mensagem>
+          <app-mensagem
+            *ngIf="formulario.get('cep')?.errors?.['pattern']"
+            mensagem="O campo de cep deve seguir este exemplo: 00000000"
+          ></app-mensagem>
+        </div>
+      </div>
+
+      <div class="formulario__campo">
+        <label class="campo__etiqueta" for="endereco">Endereço</label>
+        <input name="rua" id="rua" class="campo__escrita" formControlName="rua" [disabled]="false"/>
+      </div>
+      <div class="formulario__campo">
+        <label class="campo__etiqueta" for="complemento">Complemento</label>
+        <input
+          name="complemento"
+          id="complemento"
+          class="campo__escrita"
+          formControlName="complemento"
+        />
+      </div>
+    </div>
+
+    <div class="formulario__dupla">
+      <div class="formulario__campo">
+        <label class="campo__etiqueta" for="bairro">Bairro</label>
+        <input name="bairro" id="bairro" class="campo__escrita" formControlName="bairro" [disabled]="false" />
+      </div>
+
+      <div class="formulario__campo">
+        <label class="campo__etiqueta" for="cidade">Cidade</label>
+        <input name="cidade" id="cidade" class="campo__escrita" formControlName="cidade" [disabled]="false" />
+      </div>
+
+      <div class="formulario__campo">
+        <label class="campo__etiqueta" for="estado">UF</label>
+        <select id="estado" name="estado" class="campo__escrita" formControlName="estado" [disabled]="false">
+          <option value="AC">Acre</option>
+          <option value="AL">Alagoas</option>
+          <option value="AP">Amapá</option>
+          <option value="AM">Amazonas</option>
+          <option value="BA">Bahia</option>
+          <option value="CE">Ceará</option>
+          <option value="DF">Distrito Federal</option>
+          <option value="ES">Espírito Santo</option>
+          <option value="GO">Goiás</option>
+          <option value="MA">Maranhão</option>
+          <option value="MT">Mato Grosso</option>
+          <option value="MS">Mato Grosso do Sul</option>
+          <option value="MG">Minas Gerais</option>
+          <option value="PA">Pará</option>
+          <option value="PB">Paraíba</option>
+          <option value="PR">Paraná</option>
+          <option value="PE">Pernambuco</option>
+          <option value="PI">Piauí</option>
+          <option value="RJ">Rio de Janeiro</option>
+          <option value="RN">Rio Grande do Norte</option>
+          <option value="RS">Rio Grande do Sul</option>
+          <option value="RO">Rondônia</option>
+          <option value="RR">Roraima</option>
+          <option value="SC">Santa Catarina</option>
+          <option value="SP">São Paulo</option>
+          <option value="SE">Sergipe</option>
+          <option value="TO">Tocantins</option>
+          <option value="EX">Estrangeiro</option>
+        </select>
+      </div>
+    </div>
+      <div class="espacamento_botoes">
+        <div class="limite_espaco">
+          <button
+            type="submit"
+            class="formulario__botao"
+            (click)="criarCadastroAluno()">
+            {{ idAtualizacaoCadastroRota === null ? 'Enviar Cadastro' : 'Atualizar Cadastro' }}
+          </button>
+        </div>
+        <div class="limite_espaco">
+          <button
+          type="submit"
+          class="formulario__botao_cancelar"
+          (click)="navegar()"
+        >
+        {{ idAtualizacaoCadastroRota === null ? 'Cancelar Cadastro' : 'Cancelar Atualização' }}
+        </button>
+        </div>
+    </div>
+  </form>
+</section>
