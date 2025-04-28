@@ -12,7 +12,7 @@
         name="id_Classe"
         class="campo__escrita"
         formControlName="id_Classe"
-        [disabled]="campoDesabilitado"
+        [disabled]="!campoDesabilitado"
         *ngIf="turma.length > 0; else semTurma"
       >
         <option
@@ -47,7 +47,7 @@
           formControlName="nome"
           required
           minlength="3"
-          [disabled]="campoDesabilitado"
+          [disabled]="!campoDesabilitado"
 
         />
         <div
@@ -246,7 +246,7 @@
 
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="endereco">Endereço</label>
-        <input name="rua" id="rua" class="campo__escrita" formControlName="rua" [disabled]="false"/>
+        <input name="rua" id="rua" class="campo__escrita" formControlName="rua" [disabled]="true"/>
       </div>
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="complemento">Complemento</label>
@@ -262,17 +262,17 @@
     <div class="formulario__dupla">
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="bairro">Bairro</label>
-        <input name="bairro" id="bairro" class="campo__escrita" formControlName="bairro" [disabled]="false" />
+        <input name="bairro" id="bairro" class="campo__escrita" formControlName="bairro" [disabled]="true" />
       </div>
 
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="cidade">Cidade</label>
-        <input name="cidade" id="cidade" class="campo__escrita" formControlName="cidade" [disabled]="false" />
+        <input name="cidade" id="cidade" class="campo__escrita" formControlName="cidade" [disabled]="true" />
       </div>
 
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="estado">UF</label>
-        <select id="estado" name="estado" class="campo__escrita" formControlName="estado" [disabled]="false">
+        <select id="estado" name="estado" class="campo__escrita" formControlName="estado" [disabled]="true">
           <option value="AC">Acre</option>
           <option value="AL">Alagoas</option>
           <option value="AP">Amapá</option>

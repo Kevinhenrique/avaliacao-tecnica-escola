@@ -17,7 +17,7 @@ export class CadastroComponent implements OnInit {
   formulario!: FormGroup;
   idAtualizacaoCadastroRota: any;
   turma: Classe[] = [];
-  campoDesabilitado: boolean = true;
+  campoDesabilitado: boolean = false;
   loading: boolean = true;
 
   constructor(private cepService: ConsultaCepService, private alunoService: AlunoService,
@@ -29,7 +29,7 @@ export class CadastroComponent implements OnInit {
 
   ngOnInit(): void {
     this.idAtualizacaoCadastroRota = this.route.snapshot.paramMap.get('id');
-    this.campoDesabilitado = this.idAtualizacaoCadastroRota === '' || this.idAtualizacaoCadastroRota === undefined ? false : true;
+    this.campoDesabilitado = this.idAtualizacaoCadastroRota === null ? false : true;
 
     this.listarClasse();
 
